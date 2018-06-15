@@ -1,0 +1,29 @@
+Source: linux-@ARTIK@
+Section: kernel
+Priority: optional
+Maintainer: Chanho Park <chanho61.park@samsung.com>
+Build-Depends: bc, kmod, cpio, devicetree-compiler
+Homepage: https://github.com/SamsungARTIK/linux-artik.git
+
+Package: linux-@ARTIK@-image
+Architecture: any
+Provides: linux-image
+Description: Linux kernel, version @KERNEL_RELEASE@
+ This package contains the Linux kernel, modules and corresponding other
+ files, version: @KERNEL_RELEASE@
+
+Package: linux-@ARTIK@-image-dbg
+Architecture: any
+Provides: linux-image-dbg
+Depends: linux-@ARTIK@-image (= @PACKAGEVERSION@)
+Description: Linux kernel debugging symbols for @KERNEL_RELEASE@
+ This package will come in handy if you need to debug the kernel. It provides
+ all the necessary debug symbols for the kernel and its modules.
+
+Package: linux-@ARTIK@-kernel-headers
+Architecture: any
+Provides: linux-headers
+Depends: linux-@ARTIK@-image (= @PACKAGEVERSION@)
+Description: Linux kernel headers for @KERNEL_RELEASE@ on @ARTIK@
+ This package provides kernel header files for @KERNEL_RELEASE@ on @ARTIK@.
+ This is useful for people who need to build external modules

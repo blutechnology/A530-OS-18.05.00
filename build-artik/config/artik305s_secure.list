@@ -1,0 +1,4 @@
+../boot-firmwares-artik305s/artik305s_codesigner
+../boot-firmwares-artik305s/secureos.img
+../ubuntu-build-service/prebuilt/armhf/artik305s/libsee-linux-trustware_*_armhf.deb
+../ubuntu-build-service/prebuilt/armhf/artik305s/security-b2b-artik305s_*_armhf.deb

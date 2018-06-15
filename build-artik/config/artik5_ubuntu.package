@@ -1,0 +1,16 @@
+bluez
+wpa_supplicant
+connman
+libdrm
+coap
+lwm2m
+iotivity
+mqttsn
+mqttsn_gateway
+wayland-protocols
+wayland
+weston
+xf86-video-armsoc
+artik-plugin
+artik-plugin-artik5
+artik-ubuntu-meta

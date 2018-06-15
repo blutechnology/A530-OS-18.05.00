@@ -1,0 +1,4 @@
+../boot-firmwares-artik533s/artik533s_codesigner
+../boot-firmwares-artik533s/secureos.img
+../ubuntu-build-service/prebuilt/armhf/artik533s/libsee-linux-trustware_*_armhf.deb
+../ubuntu-build-service/prebuilt/armhf/artik533s/security-b2b-artik533s_*_armhf.deb

@@ -1,0 +1,4 @@
+../boot-firmwares-artik711s/artik711s_codesigner
+../boot-firmwares-artik711s/fip-secure.img
+../ubuntu-build-service/prebuilt/arm64/artik710s/libsee-linux-trustware_*_arm64.deb
+../ubuntu-build-service/prebuilt/arm64/artik710s/security-b2b-artik710s_*_arm64.deb

@@ -1,0 +1,4 @@
+../boot-firmwares-artik530s/artik530s_codesigner
+../boot-firmwares-artik530s/secureos.img
+../ubuntu-build-service/prebuilt/armhf/artik530s/libsee-linux-trustware_*_armhf.deb
+../ubuntu-build-service/prebuilt/armhf/artik530s/security-b2b-artik530s_*_armhf.deb

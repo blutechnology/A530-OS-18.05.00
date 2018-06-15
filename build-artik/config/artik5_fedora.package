@@ -1,0 +1,12 @@
+openssl
+curl
+libdrm
+wpa_supplicant
+artik-repos
+sbc
+bluez
+iotivity
+coap
+lwm2m
+artik-plugin
+artik-plugin-artik5

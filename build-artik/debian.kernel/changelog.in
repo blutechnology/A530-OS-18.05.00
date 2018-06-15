@@ -1,0 +1,5 @@
+linux-@ARTIK@ (@PACKAGEVERSION@) @DISTRIBUTION@; urgency=medium
+
+  * @ARTIK@ kernel
+
+ -- Chanho Park <chanho61.park@samsung.com>  @DATE@
