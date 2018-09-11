@@ -11,6 +11,11 @@ config TARGET_ARTIK530_RAPTOR
 	help
 	  Support for artik530_raptor platform.
 
+config TARGET_ARTIK530_MERLINO
+        bool "ARTIK530_MERLINO"
+	help
+	  Support for artik530_merlino platform.
+
 config TARGET_ARTIK305_RAPTOR
         bool "ARTIK305_RAPTOR"
 	help

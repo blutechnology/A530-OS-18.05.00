@@ -217,10 +217,8 @@ gen_image()
 
 install_output()
 {
-	sudo kpartx -a -v ${IMG_NAME}
-
 	if [ "$OTA" == "true" ] && [ "$SDBOOT_IMAGE" == "true" ]; then
-		LOOP_ROOTFS=`sudo kpartx -l ${IMG_NAME} | awk '{ print $1 }' | awk 'NR == 7'`
+		LOOP_ROOTFS=`sudo kpartx -a -v ${IMG_NAME} | awk '{ print $3 }' | awk 'NR == 7'`
 
 		sudo su -c "dd conv=notrunc if=$TARGET_DIR/flag.img of=$IMG_NAME \
 			bs=512 seek=$FLAG_START_SECTOR_OTA count=$FLAG_SIZE_SECTOR"
@@ -229,7 +227,7 @@ install_output()
 		sudo su -c "dd conv=notrunc if=$TARGET_DIR/modules.img of=$IMG_NAME \
 			bs=512 seek=$MODULES_START_SECTOR_OTA count=$MODULE_SIZE_SECTOR"
 	else
-		LOOP_ROOTFS=`sudo kpartx -l ${IMG_NAME} | awk '{ print $1 }' | awk 'NR == 3'`
+		LOOP_ROOTFS=`sudo kpartx -a -v ${IMG_NAME} | awk '{ print $3 }' | awk 'NR == 3'`
 		sudo su -c "dd conv=notrunc if=$TARGET_DIR/boot.img of=$IMG_NAME 	\
 			bs=1M seek=$SKIP_BOOT_SIZE count=$BOOT_SIZE"
 

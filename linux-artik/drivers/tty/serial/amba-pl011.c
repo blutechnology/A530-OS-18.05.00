@@ -60,6 +60,7 @@
 #include <linux/io.h>
 #include <linux/acpi.h>
 #include <linux/reset.h>
+#include <linux/gpio/consumer.h>
 
 #define UART_NR			14
 
@@ -183,6 +184,9 @@ struct uart_amba_port {
 	struct pl011_dmatx_data	dmatx;
 	bool			dma_probed;
 #endif
+
+	struct gpio_desc *rs485tx_gpio;
+	struct gpio_desc *rs485rx_gpio;
 };
 
 /*
@@ -1181,6 +1185,16 @@ static void pl011_stop_tx(struct uart_port *port)
 	struct uart_amba_port *uap =
 	    container_of(port, struct uart_amba_port, port);
 
+	if ((uap->rs485tx_gpio) || (uap->rs485rx_gpio))
+		while (readl(port->membase + UART01x_FR) & UART01x_FR_BUSY)
+			mdelay(1);
+
+	if (uap->rs485tx_gpio)
+		gpiod_set_value_cansleep(uap->rs485tx_gpio, 0);
+
+	if (uap->rs485rx_gpio)
+		gpiod_set_value_cansleep(uap->rs485rx_gpio, 0);
+
 	uap->im &= ~UART011_TXIM;
 	writew(uap->im, uap->port.membase + UART011_IMSC);
 	pl011_dma_tx_stop(uap);
@@ -1201,6 +1215,12 @@ static void pl011_start_tx(struct uart_port *port)
 	struct uart_amba_port *uap =
 	    container_of(port, struct uart_amba_port, port);
 
+	if (uap->rs485tx_gpio)
+		gpiod_set_value_cansleep(uap->rs485tx_gpio, 1);
+
+	if (uap->rs485rx_gpio)
+		gpiod_set_value_cansleep(uap->rs485rx_gpio, 1);
+		
 	if (!pl011_dma_tx_start(uap))
 		pl011_start_tx_pio(uap);
 }
@@ -2359,6 +2379,7 @@ static int pl011_probe(struct amba_device *dev, const struct amba_id *id)
 	struct uart_amba_port *uap;
 	struct vendor_data *vendor = id->data;
 	int portnr, ret;
+	int error;
 
 	portnr = pl011_find_free_port();
 	if (portnr < 0)
@@ -2382,7 +2403,24 @@ static int pl011_probe(struct amba_device *dev, const struct amba_id *id)
 			reset_control_reset(rst);
 	};
 #endif
+	uap->rs485tx_gpio = devm_gpiod_get_optional(&dev->dev, "rs485tx", GPIOD_OUT_LOW);
+	if (IS_ERR(uap->rs485tx_gpio)) {
+		error = PTR_ERR(uap->rs485tx_gpio);
 
+		dev_err(&dev->dev,
+				"Failed to request GPIO for rs485tx pin, error: %d\n",
+				error);
+	}
+	
+	uap->rs485rx_gpio = devm_gpiod_get_optional(&dev->dev, "rs485rx", GPIOD_OUT_LOW);
+	if (IS_ERR(uap->rs485rx_gpio)) {
+		error = PTR_ERR(uap->rs485rx_gpio);
+
+		dev_err(&dev->dev,
+				"Failed to request GPIO for rs485tx pin, error: %d\n",
+				error);
+	}
+	
 	uap->clk = devm_clk_get(&dev->dev, NULL);
 	if (IS_ERR(uap->clk))
 		return PTR_ERR(uap->clk);

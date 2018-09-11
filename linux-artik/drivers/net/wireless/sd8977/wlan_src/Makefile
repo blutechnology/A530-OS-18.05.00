@@ -33,7 +33,7 @@ YMD=		`date +%Y%m%d%H%M`
 # n: NO DEBUG
 # 1: Only PRINTM(MMSG,...), PRINTM(MFATAL,...), ...
 # 2: All PRINTM()
-CONFIG_DEBUG=1
+CONFIG_DEBUG=0
 
 # Proc debug file
 CONFIG_PROC_DEBUG=y

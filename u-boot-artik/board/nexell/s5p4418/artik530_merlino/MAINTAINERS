@@ -1,0 +1,6 @@
+ARTIK530_MERLINO BOARD
+M:  hsjung <buttiangelo@gmail.com>
+S:  Maintained
+F:  board/s5p4418/artik530_merlino/
+F:  include/configs/artik530_merlino.h
+F:  configs/artik530_merlino_defconfig

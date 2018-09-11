@@ -35,6 +35,10 @@ Optional properties:
 - poll-timeout-ms:
 	   Poll timeout when auto-poll is set, default
 	   3000ms.
+- rs485tx-gpios
+  rs485rx-gpios:
+       To manage TX/RX lines for RS485 communication connected to 
+       specific gpios lines
 
 See also bindings/arm/primecell.txt
 
